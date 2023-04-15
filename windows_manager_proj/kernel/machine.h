@@ -44,6 +44,8 @@ extern "C" void cpuid(uint32_t eax, cpuid_out* out);
 
 extern void pause();
 
+//eax is where the return value is stored
+//new thread will read what the prev one stored in eax
 extern "C" void switchToUser(uint32_t pc, uint32_t esp, uint32_t eax);
 
 extern "C" void ltr(uint32_t);
