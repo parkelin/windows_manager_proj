@@ -1,5 +1,8 @@
-// #include "stdint.h"
-// #include "machine.h"
+#ifndef PORTS_H
+#define PORTS_H
+
+#include "stdint.h"
+#include "machine.h"
 
 
 
@@ -15,4 +18,6 @@ class Ports {
 
         void write(int val);
 };
+
+#endif
 
