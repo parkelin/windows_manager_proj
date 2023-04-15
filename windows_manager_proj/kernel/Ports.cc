@@ -37,11 +37,12 @@ data port
 #include "machine.h"
 
 int port_number = 0;
-Ports newPort = new Ports(port_number);
+Ports * newPort = new Ports(port_number);
 
 
 unsigned char read(){
     inb(port_number);
+    return 0;
 }
 
 void write(int val){
