@@ -31,10 +31,13 @@ namespace gheith {
 //     }
 // }
 
+// Set the VGA registers for text mode
+
 
 
 void kernelMain(void) {
     //set up port 0x3c0, write index and data to same port
+    /*
     unsigned char value;
     Ports firstport(0x3DA);
     unsigned char status = firstport.read();
@@ -81,22 +84,73 @@ void kernelMain(void) {
     // MACHINE::outb(0x3D4, 0x03); //write value 3 to address port 0x3d4
     // MACHINE::outb(0x3D5, 0x00); 
 
-    // Pointer to video memory
-    unsigned short* video_memory = (unsigned short*) 0xB8000;
-    while(1) {
-        // Output a string to the screen
-        const char* message = "Hello, world!";
-        for (int i = 0; message[i] != '\0'; ++i) {
-            video_memory[i] = (video_memory[i] & 0xFF00) | message[i];
-        }
+    */
+
+//    set_text_mode();
+
+
+
+// Cursor position constants
+// const int SCREEN_WIDTH = 80;
+// const int SCREEN_HEIGHT = 25;
+// const int SCREEN_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT;
+// const int CURSOR_START = 0;
+// const int CURSOR_END = SCREEN_SIZE - 1;
+
+// // CRT register constants
+// const int MISC_OUTPUT_REG = 0x3c2;
+// const int MODE_CONTROL_REG = 0x3d4;
+// const int CURSOR_START_REG = 0x3d4;
+// const int CURSOR_END_REG = 0x3d4;
+
+// // Enable VGA display
+// Ports miscPort(MISC_OUTPUT_REG); //0x3c2
+// unsigned char miscVal = miscPort.read();
+// miscVal |= 0x01; //set bit 0 to be 1
+// miscPort.write(miscVal); 
+
+// // Enable text mode
+// Ports modeCtrlReg(MODE_CONTROL_REG); //0x3d4
+// modeCtrlReg.write(0x17);
+// unsigned char modeCtrlVal = modeCtrlReg.read();
+// modeCtrlVal |= 0x10;
+// modeCtrlReg.write(modeCtrlVal);
+
+// // Enable 80x25 text mode
+// Ports seqIndexPort(MODE_CONTROL_REG);
+// seqIndexPort.write(0x03);
+// Ports seqDataPort(MODE_CONTROL_REG + 1);
+// unsigned char seqDataVal = seqDataPort.read();
+// seqDataVal |= 0x03;
+// seqDataPort.write(seqDataVal);
+
+// // Set cursor start and end
+// Ports cursorStartReg(CURSOR_START_REG);
+// cursorStartReg.write(0x0a);
+// Ports cursorEndReg(CURSOR_END_REG);
+// cursorEndReg.write(0x0b);
+// Ports cursorPort(MODE_CONTROL_REG);
+// unsigned short cursorPos = CURSOR_START;
+// cursorPort.write((unsigned char)(cursorPos >> 8), 0x0e);
+// cursorPort.write((unsigned char)(cursorPos & 0xff), 0x0f);
+
+
+// Pointer to video memory
+unsigned short* video_memory = (unsigned short*) 0xB8000;
+// while(1) {
+    // Output a string to the screen
+    const char* message = "Hello, world!";
+    for (int i = 0; message[i] != '\0'; ++i) {
+        video_memory[i] = (video_memory[i] & 0xFF00) | message[i];
     }
-    
-    
-    auto argv = new const char* [2];
-    argv[0] = "init";
-    argv[1] = nullptr;
-    
-    int rc = SYS::exec(initName,1,argv);
-    Debug::panic("*** rc = %d",rc);
+// }
+
+
+auto argv = new const char* [2];
+argv[0] = "init";
+argv[1] = nullptr;
+
+int rc = SYS::exec(initName,1,argv);
+Debug::panic("*** rc = %d",rc);
 }
 
