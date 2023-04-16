@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include "stdint.h"
 // #include "ports.h"
-// #include "kernel/machine.h"
+// #include "machine.h"
+// #include "display.h"
 
 // #include "/u/ramosden/cs439/windows_manager_proj/windows_manager_proj/kernel/machine.h"
 // #include "/u/ramosden/cs439/windows_manager_proj/windows_manager_proj/kernel/ports.h"
@@ -52,7 +53,17 @@ int main() {
         }
     }
     
+//   while(1) {
 
+//         // clear_screen();
+//         char* line;
+//         for (int i = 1; i <= 35; ++i) {
+//             int_to_string(i, line, 50);
+//             print_string(line);
+//             print_nl();
+//         }
+
+//     }
 
     // while (true) {
     //     printf("here!!!!!!");
